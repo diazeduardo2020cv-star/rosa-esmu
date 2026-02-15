@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Esmu 💖</title>
+  <style>
+    :root{ --bg1:#140012; --bg2:#33001b; --text:#ffe7ee; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      overflow:hidden;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,77,125,.18), transparent 55%),
+        radial-gradient(900px 500px at 80% 30%, rgba(255,77,125,.14), transparent 60%),
+        radial-gradient(900px 900px at 50% 120%, rgba(255,255,255,.06), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+    }
+
+    .scene{ position:relative; width:100%; height:100%; display:grid; place-items:center; padding:24px; }
+    .card{
+      position:relative;
+      width:min(760px, 92vw);
+      height:min(560px, 84vh);
+      border-radius:26px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      overflow:hidden;
+    }
+
+    .header{ position:absolute; top:18px; left:18px; right:18px; z-index:5; }
+    .title{ margin:0; font-size:clamp(20px, 2.8vw, 32px); font-weight:900; letter-spacing:.3px; }
+
+    .rose-area{ position:absolute; inset:0; display:grid; place-items:center; z-index:3; }
+    .rose{
+      width:min(330px, 70vw);
+      filter: drop-shadow(0 18px 22px rgba(0,0,0,.35));
+      animation: breathe 3.6s ease-in-out infinite;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @keyframes breathe{ 0%,100%{ transform: translateY(0) scale(1);} 50%{ transform: translateY(-4px) scale(1.01);} }
+
+    .note{
+      position:absolute;
+      left:18px; right:18px;
+      bottom:22px;
+      margin:auto;
+      max-width:min(520px, 92vw);
+      padding:14px 16px;
+      border-radius:18px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+      z-index:6;
+      font-size:15px;
+      line-height:1.35;
+      text-align:left;
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
+    }
+    .note .name{ font-weight:900; color:#ffd1de; }
+
+    #petals{ position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:4; }
+    .petal{
+      position:absolute;
+      top:-40px;
+      width:18px;
+      height:26px;
+      border-radius: 70% 70% 70% 70%;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.35), transparent 40%),
+        linear-gradient(160deg, #ff5b87, #b1002a 70%, #7a0018);
+      box-shadow: 0 10px 18px rgba(0,0,0,.18);
+      transform: rotate(var(--r)) translateY(-20px);
+      opacity:0.95;
+      animation: fall var(--dur) linear forwards, sway var(--sway) ease-in-out infinite;
+    }
+    @keyframes fall{ to{ transform: translateY(calc(100vh + 120px)) rotate(calc(var(--r) + 140deg)); opacity:0.02; } }
+    @keyframes sway{ 0%,100%{ margin-left:0; } 50%{ margin-left: calc(var(--dx) * 1px); } }
+
+    audio{ display:none; }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="card">
+      <div class="header">
+        <h1 class="title">Para Esmu 💖</h1>
+      </div>
+
+      <div class="rose-area">
+        <svg class="rose" id="rose" viewBox="0 0 300 420" aria-label="Rosa">
+          <path d="M150 155 C145 220, 140 280, 150 370 C160 320, 165 250, 150 155"
+                fill="none" stroke="rgba(20,200,110,.95)" stroke-width="12" stroke-linecap="round"/>
+          <path d="M150 155 C145 220, 140 280, 150 370"
+                fill="none" stroke="rgba(10,90,45,.55)" stroke-width="6" stroke-linecap="round"/>
+
+          <path d="M135 240 C95 220, 70 240, 85 275 C105 318, 145 300, 155 265 C160 252, 150 245, 135 240 Z"
+                fill="url(#leafGrad)"/>
+          <path d="M165 275 C205 260, 235 285, 225 318 C212 360, 170 350, 160 320 C155 305, 155 285, 165 275 Z"
+                fill="url(#leafGrad2)"/>
+
+          <g transform="translate(0,-6)">
+            <path d="M150 60 C115 45, 85 70, 95 105 C80 120, 90 155, 125 155 C135 175, 165 175, 175 155 C210 155, 220 120, 205 105 C215 70, 185 45, 150 60 Z"
+                  fill="url(#petalMain)"/>
+            <path d="M150 78 C130 70, 118 82, 122 98 C112 108, 118 126, 135 128 C140 140, 160 140, 165 128 C182 126, 188 108, 178 98 C182 82, 170 70, 150 78 Z"
+                  fill="url(#petalInner)" opacity=".95"/>
+            <path d="M150 95 C140 92, 135 100, 138 108 C135 113, 138 123, 147 124 C149 130, 151 130, 153 124 C162 123, 165 113, 162 108 C165 100, 160 92, 150 95 Z"
+                  fill="url(#petalCore)" opacity=".98"/>
+          </g>
+
+          <defs>
+            <linearGradient id="petalMain" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff6a94"/>
+              <stop offset=".55" stop-color="#c4002b"/>
+              <stop offset="1" stop-color="#7a0018"/>
+            </linearGradient>
+            <linearGradient id="petalInner" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ff7aa0"/>
+              <stop offset=".7" stop-color="#c4002b"/>
+              <stop offset="1" stop-color="#7a0018"/>
+            </linearGradient>
+            <linearGradient id="petalCore" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffd1de"/>
+              <stop offset=".45" stop-color="#ff4d7d"/>
+              <stop offset="1" stop-color="#b1002a"/>
+            </linearGradient>
+            <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2bd96b"/>
+              <stop offset="1" stop-color="#0f5a2c"/>
+            </linearGradient>
+            <linearGradient id="leafGrad2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2bd96b"/>
+              <stop offset="1" stop-color="#0b3f1f"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div id="petals"></div>
+
+      <div class="note">
+        <div class="name">Esmu,</div>
+        <div>No sé cómo decirlo mejor… pero eres hermosa. 💖</div>
+      </div>
+
+      <!-- Música: 1) local (recomendado) 2) Drive (alternativa) -->
+      <audio id="music" preload="auto" loop>
+        <!-- ✅ RECOMENDADO: si subes el MP3 junto al HTML, ponlo con el nombre EXACTO Musica.mp3 -->
+        <source src="Musica.mp3" type="audio/mpeg">
+        <!-- Alternativa Drive (a veces falla por permisos/CORS) -->
+        <source src="https://drive.google.com/uc?export=download&confirm=t&id=1f2pLxcMDsFQTjLyhnx2Ja0xMPPVkgq-n" type="audio/mpeg">
+        <source src="https://drive.google.com/uc?export=download&id=1f2pLxcMDsFQTjLyhnx2Ja0xMPPVkgq-n" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const petalsLayer = document.getElementById('petals');
+    const rose = document.getElementById('rose');
+    const music = document.getElementById('music');
+
+    function spawnPetal(xOverride=null){
+      const p = document.createElement('div');
+      p.className = 'petal';
+
+      const x = (xOverride !== null) ? xOverride : (Math.random()*100);
+      p.style.left = x + '%';
+
+      const dur = 6 + Math.random()*6;
+      const sway = 1.6 + Math.random()*1.8;
+      const dx = (Math.random()*60 - 30).toFixed(0);
+      const r  = (Math.random()*120 - 60).toFixed(0) + 'deg';
+
+      p.style.setProperty('--dur', dur + 's');
+      p.style.setProperty('--sway', sway + 's');
+      p.style.setProperty('--dx', dx);
+      p.style.setProperty('--r', r);
+
+      petalsLayer.appendChild(p);
+      setTimeout(()=>p.remove(), (dur+1)*1000);
+    }
+
+    // Lluvia suave constante
+    setInterval(()=>{ spawnPetal(); if(Math.random()>0.55) spawnPetal(); }, 380);
+
+    function burst(){
+      const rect = rose.getBoundingClientRect();
+      const centerX = ((rect.left + rect.width/2) / window.innerWidth) * 100;
+      for(let i=0; i<22; i++){
+        const spread = (Math.random()*18 - 9);
+        spawnPetal(Math.max(0, Math.min(100, centerX + spread)));
+      }
+    }
+
+    async function playMusic(){
+      try{
+        music.volume = 0.5; // ✅ empieza bajita 50%
+        await music.play();
+      }catch(e){
+        // Si el navegador bloquea o Drive no entrega audio directo, no rompemos nada.
+        // Consejo: sube Musica.mp3 junto al HTML (misma carpeta) para que funcione 100%.
+      }
+    }
+
+    function onRose(){ burst(); playMusic(); }
+    rose.addEventListener('click', onRose);
+    rose.addEventListener('pointerdown', (e)=>{ e.preventDefault(); onRose(); }, {passive:false});
+  </script>
+</body>
+</html>
