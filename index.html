@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Para Esmu 💖</title>
   <style>
-    :root{ --bg1:#140012; --bg2:#33001b; --text:#ffe7ee; }
+    :root{ --bg1:#140012; --bg2:#33001b; --text:#ffe7ee; --heart:#ff184c; }
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
-      margin:0;
-      overflow:hidden;
+      margin:0; overflow:hidden;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
@@ -22,15 +21,11 @@
 
     .scene{ position:relative; width:100%; height:100%; display:grid; place-items:center; padding:24px; }
     .card{
-      position:relative;
-      width:min(760px, 92vw);
-      height:min(560px, 84vh);
-      border-radius:26px;
-      background: rgba(255,255,255,.06);
+      position:relative; width:min(760px, 92vw); height:min(560px, 84vh);
+      border-radius:26px; background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08);
-      backdrop-filter: blur(10px);
-      overflow:hidden;
+      backdrop-filter: blur(10px); overflow:hidden;
     }
 
     .header{ position:absolute; top:18px; left:18px; right:18px; z-index:5; }
@@ -38,52 +33,65 @@
 
     .rose-area{ position:absolute; inset:0; display:grid; place-items:center; z-index:3; }
     .rose{
-      width:min(330px, 70vw);
-      filter: drop-shadow(0 18px 22px rgba(0,0,0,.35));
-      animation: breathe 3.6s ease-in-out infinite;
-      cursor:pointer;
-      user-select:none;
-      -webkit-tap-highlight-color: transparent;
+      width:min(330px, 70vw); filter: drop-shadow(0 18px 22px rgba(0,0,0,.35));
+      animation: breathe 3.6s ease-in-out infinite; cursor:pointer; user-select:none; -webkit-tap-highlight-color: transparent;
     }
     @keyframes breathe{ 0%,100%{ transform: translateY(0) scale(1);} 50%{ transform: translateY(-4px) scale(1.01);} }
 
-    .note{
-      position:absolute;
-      left:18px; right:18px;
-      bottom:22px;
-      margin:auto;
-      max-width:min(520px, 92vw);
-      padding:14px 16px;
-      border-radius:18px;
-      background: rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.12);
-      z-index:6;
-      font-size:15px;
-      line-height:1.35;
-      text-align:left;
-      box-shadow: 0 10px 28px rgba(0,0,0,.25);
-    }
-    .note .name{ font-weight:900; color:#ffd1de; }
-
     #petals{ position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:4; }
     .petal{
-      position:absolute;
-      top:-40px;
-      width:18px;
-      height:26px;
-      border-radius: 70% 70% 70% 70%;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,.35), transparent 40%),
-        linear-gradient(160deg, #ff5b87, #b1002a 70%, #7a0018);
-      box-shadow: 0 10px 18px rgba(0,0,0,.18);
-      transform: rotate(var(--r)) translateY(-20px);
-      opacity:0.95;
+      position:absolute; top:-40px; width:18px; height:26px; border-radius: 70% 70% 70% 70%;
+      background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.35), transparent 40%),
+                  linear-gradient(160deg, #ff5b87, #b1002a 70%, #7a0018);
+      box-shadow: 0 10px 18px rgba(0,0,0,.18); transform: rotate(var(--r)) translateY(-20px); opacity:0.95;
       animation: fall var(--dur) linear forwards, sway var(--sway) ease-in-out infinite;
     }
     @keyframes fall{ to{ transform: translateY(calc(100vh + 120px)) rotate(calc(var(--r) + 140deg)); opacity:0.02; } }
     @keyframes sway{ 0%,100%{ margin-left:0; } 50%{ margin-left: calc(var(--dx) * 1px); } }
 
-    audio{ display:none; }
+    .note{
+      position:absolute; left:18px; right:18px; bottom:22px; margin:auto;
+      max-width:min(520px, 92vw); padding:14px 16px; border-radius:18px;
+      background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.12);
+      z-index:6; font-size:15px; line-height:1.35; text-align:left; box-shadow: 0 10px 28px rgba(0,0,0,.25);
+    }
+    .note .name{ font-weight:900; color:#ffd1de; }
+
+    /* ❤️ Botón corazón centrado */
+    .heart-btn{
+      position:absolute; left:0; right:0; bottom:96px; margin:auto; z-index:6;
+      width:64px; height:64px; border-radius:50%; border:1px solid rgba(255,255,255,.25);
+      background: radial-gradient(circle at 35% 30%, #ff6a8c, var(--heart));
+      box-shadow: 0 14px 26px rgba(0,0,0,.35), inset 0 2px 4px rgba(255,255,255,.25);
+      display:grid; place-items:center; cursor:pointer; user-select:none;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .heart-btn:hover{ transform: translateY(-2px) scale(1.02); filter: saturate(1.1); }
+    .heart-btn:active{ transform: translateY(0) scale(.98); }
+    .heart-icon{ font-size:28px; line-height:1; }
+
+    /* 🪟 Ventana (modal) que se repliega en la misma pantalla */
+    .modal-backdrop{
+      position:absolute; inset:0; background: rgba(0,0,0,.35); display:none; z-index:8;
+    }
+    .modal{
+      position:absolute; left:50%; top:12%; transform:translateX(-50%) translateY(-10px);
+      width:min(680px, 92vw); max-height:70vh; overflow:auto; padding:18px 18px 20px;
+      border-radius:18px; background: rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 24px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.18);
+      backdrop-filter: blur(10px); color:var(--text);
+      animation: slideDown .34s ease forwards;
+    }
+    @keyframes slideDown{
+      from{ opacity:0; transform:translateX(-50%) translateY(-18px); }
+      to{ opacity:1; transform:translateX(-50%) translateY(0); }
+    }
+    .modal h3{ margin:0 0 8px; font-size:20px; }
+    .modal p{ margin:6px 0; font-size:15px; line-height:1.55; }
+    .modal .close{
+      position:absolute; top:10px; right:12px; background:transparent; border:none; color:var(--text);
+      font-size:22px; cursor:pointer; opacity:.9;
+    }
   </style>
 </head>
 <body>
@@ -149,13 +157,27 @@
         <div>No sé cómo decirlo mejor… pero eres hermosa. 💖</div>
       </div>
 
-      <!-- Música: 1) local (recomendado) 2) Drive (alternativa) -->
+      <!-- ❤️ Botón corazón centrado -->
+      <button id="heart" class="heart-btn" aria-label="Abrir mensaje"><span class="heart-icon">❤</span></button>
+
+      <!-- 🪟 Modal del mensaje -->
+      <div id="backdrop" class="modal-backdrop" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <button class="close" id="closeModal" aria-label="Cerrar">✕</button>
+          <h3 id="modalTitle">Para Esmu 💖</h3>
+          <p>
+            Hola, Esmu. Te deseo un lindo Día de San Valentín; y no solo en este día eres especial. 
+            Eres una persona que se volvió importante en muy poquito tiempo, y he aprendido mucho de ti: 
+            a ser muy fuerte ante los problemas. Eres una mujer y madre con muchísimo valor. 
+            Hay tantas cosas increíbles que podría decir de ti que no acabaría de escribirlas. 
+            Te quiero muchísimo; siempre deseo lo mejor para ti. Y aunque estemos lejos, siempre te siento cerquita. 💖
+          </p>
+        </div>
+      </div>
+
+      <!-- Música local (coloca un archivo llamado Musica.mp3 junto a este HTML) -->
       <audio id="music" preload="auto" loop>
-        <!-- ✅ RECOMENDADO: si subes el MP3 junto al HTML, ponlo con el nombre EXACTO Musica.mp3 -->
-        <source src="Musica.mp3" type="audio/mpeg">
-        <!-- Alternativa Drive (a veces falla por permisos/CORS) -->
-        <source src="https://drive.google.com/uc?export=download&confirm=t&id=1f2pLxcMDsFQTjLyhnx2Ja0xMPPVkgq-n" type="audio/mpeg">
-        <source src="https://drive.google.com/uc?export=download&id=1f2pLxcMDsFQTjLyhnx2Ja0xMPPVkgq-n" type="audio/mpeg">
+        Musica.mp3
       </audio>
     </div>
   </div>
@@ -164,24 +186,23 @@
     const petalsLayer = document.getElementById('petals');
     const rose = document.getElementById('rose');
     const music = document.getElementById('music');
+    const heart = document.getElementById('heart');
+    const backdrop = document.getElementById('backdrop');
+    const closeModal = document.getElementById('closeModal');
 
     function spawnPetal(xOverride=null){
       const p = document.createElement('div');
       p.className = 'petal';
-
       const x = (xOverride !== null) ? xOverride : (Math.random()*100);
       p.style.left = x + '%';
-
       const dur = 6 + Math.random()*6;
       const sway = 1.6 + Math.random()*1.8;
       const dx = (Math.random()*60 - 30).toFixed(0);
       const r  = (Math.random()*120 - 60).toFixed(0) + 'deg';
-
       p.style.setProperty('--dur', dur + 's');
       p.style.setProperty('--sway', sway + 's');
       p.style.setProperty('--dx', dx);
       p.style.setProperty('--r', r);
-
       petalsLayer.appendChild(p);
       setTimeout(()=>p.remove(), (dur+1)*1000);
     }
@@ -189,8 +210,8 @@
     // Lluvia suave constante
     setInterval(()=>{ spawnPetal(); if(Math.random()>0.55) spawnPetal(); }, 380);
 
-    function burst(){
-      const rect = rose.getBoundingClientRect();
+    function burstAtCenterOf(el){
+      const rect = el.getBoundingClientRect();
       const centerX = ((rect.left + rect.width/2) / window.innerWidth) * 100;
       for(let i=0; i<22; i++){
         const spread = (Math.random()*18 - 9);
@@ -199,16 +220,29 @@
     }
 
     async function playMusic(){
-      try{
-        music.volume = 0.5; // ✅ empieza bajita 50%
-        await music.play();
-      }catch(e){
-        // Si el navegador bloquea o Drive no entrega audio directo, no rompemos nada.
-        // Consejo: sube Musica.mp3 junto al HTML (misma carpeta) para que funcione 100%.
-      }
+      try{ music.volume = 0.5; await music.play(); }catch(e){}
     }
 
-    function onRose(){ burst(); playMusic(); }
+    function onRose(){ burstAtCenterOf(rose); playMusic(); }
+    rose.addEventListener('click', onRose);
+    rose.addEventListener('pointerdown', (e)=>{ e.preventDefault(); onRose(); }, {passive:false});
+
+    // ❤️ Abrir modal con el corazón (misma pantalla)
+    function openModal(){
+      backdrop.hidden = false; backdrop.style.display = 'block';
+      burstAtCenterOf(heart); // también un suspiro de pétalos
+      playMusic();
+    }
+    function close(){ backdrop.hidden = true; backdrop.style.display = 'none'; }
+
+    heart.addEventListener('click', openModal);
+    heart.addEventListener('pointerdown', (e)=>{ e.preventDefault(); openModal(); }, {passive:false});
+    backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) close(); });
+    closeModal.addEventListener('click', close);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+  </script>
+</body>
+</html>
     rose.addEventListener('click', onRose);
     rose.addEventListener('pointerdown', (e)=>{ e.preventDefault(); onRose(); }, {passive:false});
   </script>
