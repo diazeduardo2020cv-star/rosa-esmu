@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Esmu 💖</title>
 
 <style>
-:root{ --bg1:#140012; --bg2:#33001b; --text:#ffe7ee; --heart:#ff184c; }
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
+:root{
+  --bg1:#140012;
+  --bg2:#33001b;
+  --text:#ffe7ee;
+  --heart:#ff184c;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
 
 body{
-  margin:0; overflow:hidden;
+  overflow:hidden;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color:var(--text);
   background:
@@ -20,88 +26,122 @@ body{
     linear-gradient(160deg, var(--bg1), var(--bg2));
 }
 
-.scene{ position:relative; width:100%; height:100%; display:grid; place-items:center; padding:24px; }
-
-.card{
-  position:relative; width:min(760px, 92vw); height:min(560px, 84vh);
-  border-radius:26px; background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 20px 60px rgba(0,0,0,.45);
-  backdrop-filter: blur(10px); overflow:hidden;
+.scene{
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-.title{ position:absolute; top:18px; left:18px; font-size:22px; font-weight:900; }
+.card{
+  position:relative;
+  width:min(760px,92vw);
+  height:min(560px,84vh);
+  border-radius:26px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  backdrop-filter:blur(10px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
 
-.rose-area{ position:absolute; inset:0; display:grid; place-items:center; }
+/* ROSA */
 
 .rose{
-  width:min(330px, 70vw);
+  width:260px;
   cursor:pointer;
-  animation: breathe 3.6s ease-in-out infinite;
+  animation:breathe 4s ease-in-out infinite;
 }
 
 @keyframes breathe{
-  0%,100%{ transform: translateY(0) scale(1);}
-  50%{ transform: translateY(-4px) scale(1.02);}
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
 }
 
-#petals{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+/* PETALOS */
+
+#petals{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
 
 .petal{
   position:absolute;
   top:-40px;
   width:18px;
   height:26px;
-  border-radius: 70%;
-  background: linear-gradient(160deg, #ff5b87, #b1002a 70%);
-  animation: fall 8s linear forwards;
+  border-radius:70%;
+  background:linear-gradient(160deg,#ff6a8c,#b1002a);
+  animation:fall linear forwards;
 }
 
 @keyframes fall{
   to{
-    transform: translateY(100vh) rotate(360deg);
+    transform:translateY(100vh) rotate(360deg);
     opacity:0;
   }
 }
 
 .note{
-  position:absolute; left:18px; right:18px; bottom:22px;
-  padding:14px 16px; border-radius:18px;
-  background: rgba(0,0,0,.18);
-  font-size:15px;
+  position:absolute;
+  bottom:20px;
+  width:90%;
+  text-align:center;
+  padding:12px;
+  background:rgba(0,0,0,.3);
+  border-radius:18px;
 }
 
 .heart-btn{
-  position:absolute; left:0; right:0; bottom:96px; margin:auto;
-  width:64px; height:64px; border-radius:50%;
-  background: radial-gradient(circle at 35% 30%, #ff6a8c, var(--heart));
-  display:grid; place-items:center; cursor:pointer;
-  border:none; font-size:28px; color:white;
-}
-
-.modal-backdrop{
-  position:absolute; inset:0;
-  background: rgba(0,0,0,.4);
-  display:none;
-}
-
-.modal{
-  position:absolute; left:50%; top:15%;
-  transform:translateX(-50%);
-  width:min(680px, 92vw);
-  background: rgba(255,255,255,.1);
-  padding:18px;
-  border-radius:18px;
-  backdrop-filter: blur(10px);
-}
-
-.modal button{
-  position:absolute; right:10px; top:10px;
-  background:none; border:none; font-size:20px; color:white;
+  margin-top:20px;
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  border:none;
+  font-size:28px;
+  background:radial-gradient(circle,#ff6a8c,#ff184c);
+  color:white;
   cursor:pointer;
 }
 
-audio{ display:none; }
+.modal-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal{
+  width:min(680px,92vw);
+  max-height:75vh;
+  overflow:auto;
+  background:rgba(255,255,255,.12);
+  padding:24px;
+  border-radius:18px;
+  backdrop-filter:blur(12px);
+  position:relative;
+}
+
+.modal button{
+  position:absolute;
+  right:12px;
+  top:12px;
+  background:none;
+  border:none;
+  font-size:20px;
+  color:white;
+  cursor:pointer;
+}
+
+audio{display:none;}
 </style>
 </head>
 
@@ -110,49 +150,58 @@ audio{ display:none; }
 <div class="scene">
 <div class="card">
 
-<div class="title">Para Esmu 💖</div>
+<!-- ROSA -->
+<svg class="rose" id="rose" viewBox="0 0 400 500">
 
-<div class="rose-area">
-<svg class="rose" id="rose" viewBox="0 0 300 420">
-<path d="M150 155 C145 220, 140 280, 150 370 C160 320, 165 250, 150 155"
-fill="none" stroke="green" stroke-width="10"/>
-<circle cx="150" cy="100" r="50" fill="#c4002b"/>
+<defs>
+<radialGradient id="petalGrad" cx="50%" cy="50%" r="70%">
+<stop offset="0%" stop-color="#ff4d6d"/>
+<stop offset="100%" stop-color="#8b001f"/>
+</radialGradient>
+</defs>
+
+<path d="M200 250 C190 350 180 400 200 480 C220 400 210 350 200 250"
+stroke="#0f6b2f" stroke-width="8" fill="none"/>
+
+<path d="M200 320 C140 300 140 360 200 350" fill="#1b8f3c"/>
+<path d="M200 340 C260 310 260 370 200 360" fill="#1b8f3c"/>
+
+<ellipse cx="200" cy="170" rx="70" ry="60" fill="url(#petalGrad)"/>
+<ellipse cx="170" cy="150" rx="60" ry="50" fill="url(#petalGrad)"/>
+<ellipse cx="230" cy="150" rx="60" ry="50" fill="url(#petalGrad)"/>
+<ellipse cx="200" cy="130" rx="55" ry="45" fill="#b1002a"/>
+<ellipse cx="200" cy="115" rx="35" ry="30" fill="#8b001f"/>
+
 </svg>
+
+<button class="heart-btn" id="heart">❤</button>
+
+<div class="note">
+No sé cómo decirlo mejor… pero eres hermosa. 💖
 </div>
 
 <div id="petals"></div>
 
-<div class="note">
-Esmu, no sé cómo decirlo mejor… pero eres hermosa. 💖
-</div>
-
-<button id="heart" class="heart-btn">❤</button>
-
-<div id="backdrop" class="modal-backdrop">
+<div class="modal-backdrop" id="backdrop">
   <div class="modal">
     <button id="closeModal">✕</button>
     <h3>Para Esmu 💖</h3>
-<p style="line-height:1.6; font-size:16px;">
+    <p>
 Hola, Esmu. Te deseo un lindo Día de San Valentín;<br><br>
-
 y no solo en este día eres especial.  
-Eres una persona que se volvió importante en muy poquito tiempo,<br>
+Eres una persona que se volvió importante en muy poquito tiempo,
 y he aprendido mucho de ti: a ser muy fuerte ante los problemas.<br><br>
-
 Eres una mujer y madre con muchísimo valor.<br><br>
-
-Hay tantas cosas increíbles que podría decir de ti  
+Hay tantas cosas increíbles que podría decir de ti
 que no acabaría de escribirlas.<br><br>
-
 Te quiero muchísimo; siempre deseo lo mejor para ti.<br><br>
-
 Y aunque estemos lejos, siempre te siento cerquita. 💖
-</p>
+    </p>
   </div>
 </div>
 
 <audio id="music" preload="auto" loop>
-  <source src="Musica.mp3" type="audio/mpeg">
+<source src="Musica.mp3" type="audio/mpeg">
 </audio>
 
 </div>
@@ -172,24 +221,46 @@ function playMusic(){
   if(p !== undefined){ p.catch(()=>{}); }
 }
 
-function createPetal(){
+function createPetal(light = true){
   const p = document.createElement("div");
-  p.className="petal";
-  p.style.left=Math.random()*100+"%";
+  p.className = "petal";
+  p.style.left = Math.random() * 100 + "%";
+  p.style.animationDuration = light
+    ? (6 + Math.random()*3) + "s"
+    : (3 + Math.random()*2) + "s";
   petals.appendChild(p);
-  setTimeout(()=>p.remove(),8000);
+  setTimeout(()=>p.remove(),9000);
 }
 
-setInterval(createPetal,500);
+function heavyRain(){
+  for(let i=0;i<40;i++){
+    createPetal(false);
+  }
+}
 
-rose.addEventListener("click", playMusic);
-heart.addEventListener("click", ()=>{
-  backdrop.style.display="block";
+/* Siempre suave */
+setInterval(()=>{
+  createPetal(true);
+}, 600);
+
+rose.addEventListener("click",()=>{
+  playMusic();
+  heavyRain();
+});
+
+heart.addEventListener("click",()=>{
+  backdrop.style.display="flex";
   playMusic();
 });
-closeModal.addEventListener("click", ()=>backdrop.style.display="none");
+
+closeModal.addEventListener("click",()=>{
+  backdrop.style.display="none";
+});
+
 backdrop.addEventListener("click",(e)=>{
-  if(e.target===backdrop){ backdrop.style.display="none"; }
+  if(e.target===backdrop){
+    backdrop.style.display="none";
+  }
 });
 </script>
 
