@@ -39,9 +39,29 @@ body{
   cursor:pointer;
   animation: breathe 3.6s ease-in-out infinite;
 }
+
 @keyframes breathe{
   0%,100%{ transform: translateY(0) scale(1);}
   50%{ transform: translateY(-4px) scale(1.02);}
+}
+
+#petals{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+
+.petal{
+  position:absolute;
+  top:-40px;
+  width:18px;
+  height:26px;
+  border-radius: 70%;
+  background: linear-gradient(160deg, #ff5b87, #b1002a 70%);
+  animation: fall 8s linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform: translateY(100vh) rotate(360deg);
+    opacity:0;
+  }
 }
 
 .note{
@@ -94,9 +114,13 @@ audio{ display:none; }
 
 <div class="rose-area">
 <svg class="rose" id="rose" viewBox="0 0 300 420">
-<circle cx="150" cy="150" r="70" fill="#c4002b"/>
+<path d="M150 155 C145 220, 140 280, 150 370 C160 320, 165 250, 150 155"
+fill="none" stroke="green" stroke-width="10"/>
+<circle cx="150" cy="100" r="50" fill="#c4002b"/>
 </svg>
 </div>
+
+<div id="petals"></div>
 
 <div class="note">
 Esmu, no sé cómo decirlo mejor… pero eres hermosa. 💖
@@ -108,11 +132,22 @@ Esmu, no sé cómo decirlo mejor… pero eres hermosa. 💖
   <div class="modal">
     <button id="closeModal">✕</button>
     <h3>Para Esmu 💖</h3>
-    <p>
-      Hola, Esmu. Te deseo un lindo Día de San Valentín.
-      Eres una persona muy especial y aunque estemos lejos,
-      siempre te siento cerquita. 💖
-    </p>
+<p style="line-height:1.6; font-size:16px;">
+Hola, Esmu. Te deseo un lindo Día de San Valentín;<br><br>
+
+y no solo en este día eres especial.  
+Eres una persona que se volvió importante en muy poquito tiempo,<br>
+y he aprendido mucho de ti: a ser muy fuerte ante los problemas.<br><br>
+
+Eres una mujer y madre con muchísimo valor.<br><br>
+
+Hay tantas cosas increíbles que podría decir de ti  
+que no acabaría de escribirlas.<br><br>
+
+Te quiero muchísimo; siempre deseo lo mejor para ti.<br><br>
+
+Y aunque estemos lejos, siempre te siento cerquita. 💖
+</p>
   </div>
 </div>
 
@@ -126,6 +161,7 @@ Esmu, no sé cómo decirlo mejor… pero eres hermosa. 💖
 <script>
 const rose = document.getElementById("rose");
 const music = document.getElementById("music");
+const petals = document.getElementById("petals");
 const heart = document.getElementById("heart");
 const backdrop = document.getElementById("backdrop");
 const closeModal = document.getElementById("closeModal");
@@ -133,23 +169,27 @@ const closeModal = document.getElementById("closeModal");
 function playMusic(){
   music.volume = 0.5;
   const p = music.play();
-  if(p !== undefined){
-    p.catch(()=>{});
-  }
+  if(p !== undefined){ p.catch(()=>{}); }
 }
+
+function createPetal(){
+  const p = document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*100+"%";
+  petals.appendChild(p);
+  setTimeout(()=>p.remove(),8000);
+}
+
+setInterval(createPetal,500);
 
 rose.addEventListener("click", playMusic);
 heart.addEventListener("click", ()=>{
   backdrop.style.display="block";
   playMusic();
 });
-closeModal.addEventListener("click", ()=>{
-  backdrop.style.display="none";
-});
+closeModal.addEventListener("click", ()=>backdrop.style.display="none");
 backdrop.addEventListener("click",(e)=>{
-  if(e.target===backdrop){
-    backdrop.style.display="none";
-  }
+  if(e.target===backdrop){ backdrop.style.display="none"; }
 });
 </script>
 
